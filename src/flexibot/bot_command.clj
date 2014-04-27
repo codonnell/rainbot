@@ -25,7 +25,7 @@
                     (catch Exception e nil))]
     (println (str "nick: " nick ", points: " points
                   ", bot-command-params: " bot-command-params))
-    (cond (not= nick "caracal")
+    (cond (not= nick "rainbowsaurus")
           (private-message channel "Only rainbowsaurus can give out rainbow points!")
           (and recipient points)
           (authenticated nick
