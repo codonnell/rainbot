@@ -43,6 +43,9 @@
   (enqueue output-channel (map->message {:command "PRIVMSG"
                                          :params (list channel)
                                          :trailing message})))
+(defn action [channel message]
+  (private-message channel (str "\001ACTION " message "\001")))
+
 
 (defn quit [message]
   (enqueue output-channel (map->message {:command "QUIT"
@@ -99,11 +102,19 @@
   (let [channel (first params)]
     (private-message channel (wiki/random-page))))
 
+(defn hug [{:keys [bot-command-params params]}]
+  (let [hugged (first bot-command-params)
+        channel (first params)]
+    (if (= hugged "all")
+      (action channel "hugs everyone!")
+      (action channel (str "hugs " hugged)))))
+
 (def bot-command-list
   (atom {"points" points
          "pts" points
          "addpts" add-points
-         "til..." random-page}))
+         "til..." random-page
+         "hug" hug}))
 
 (defn privmsg-dispatch [message]
   ((get @bot-command-list (:bot-command message)) message))
