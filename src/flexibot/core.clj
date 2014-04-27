@@ -103,7 +103,7 @@
   (atom {"points" points
          "pts" points
          "addpts" add-points
-         "til" random-page}))
+         "til..." random-page}))
 
 (defn privmsg-dispatch [message]
   ((get @bot-command-list (:bot-command message)) message))
