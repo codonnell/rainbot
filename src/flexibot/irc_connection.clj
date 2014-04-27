@@ -50,8 +50,9 @@
   (join-channel (config :channel)))
 
 (defmethod cmd-dispatch "NOTICE" [message]
-  (when (= (first (:params message)) "NickServ")
-    (enqueue message auth-channel)))
+  (when (and (= (:nick message) "NickServ")
+             (re-find #"STATUS .*" (:trailing message)))
+    (enqueue auth-channel message)))
 
 (defmethod cmd-dispatch :default [message]
   nil)
