@@ -133,7 +133,7 @@
   nil)
 
 (defn on-connect [message]
-  (join-channel "#rainbot"))
+  (join-channel (config :channel)))
 
 (defn -main [& args]
   (do (enqueue output-channel
